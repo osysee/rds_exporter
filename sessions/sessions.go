@@ -183,7 +183,8 @@ func buildCredentials(instance config.Instance) (*credentials.Credentials, error
 	if instance.AWSRoleArn != "" {
 		stsSession, err := session.NewSession(&aws.Config{
 			Region:      aws.String(instance.Region),
-			Credentials: credentials.NewStaticCredentials(instance.AWSAccessKey, instance.AWSSecretKey, ""),
+			// No need to credentials with accesskey and secretkey on assumeRole
+			// Credentials: credentials.NewStaticCredentials(instance.AWSAccessKey, instance.AWSSecretKey, ""),
 		})
 		if err != nil {
 			return nil, err
